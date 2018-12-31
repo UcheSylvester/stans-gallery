@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stan's Photo Gallery💪</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/jpg" href="stan.jpg" />
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+      background: #ffc600;
+      font-family: 'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+    
+    body {
+      margin: 0;
+      max-width: 100%;
+    }
+    
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .panel {
+      background: #6B0F9C;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+      color: white;
+      text-align: center;
+      align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      transition:
+        font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        background 0.2s;
+      font-size: 20px;
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      align-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+    .panel1 { background-image:url(https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/46815707_159378718382269_4615440240750886912_n.jpg?_nc_cat=108&_nc_eui2=AeE9Mu_G9tMlSrcKONwWB4x3Nf10xSBxM1BRkEErJpHOBxR9XbZ3gXYeDQITGSrYInhBcZrGgqATJDk284icwbVfppTom83UZI9y4N4_5jnk0X1M45L6IdC87jP5MRWYslA&_nc_ht=scontent.fabv1-1.fna&oh=ef384f56abddd71f4889e155fdb85e58&oe=5C940C7D); }
+    .panel2 { background-image:url(https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/45186764_129683151351826_6754580455216906240_n.jpg?_nc_cat=111&_nc_eui2=AeHtPABbhcTtvBwwFZOykpUzoDcjU94yJYvvesVt_Q-MZYTs7-SXErtJZQuDFlAgBpPpT515sw_Q-PFdx2IGy8mk6_f2P-k2vT5YwkEIARtG_VeZrS-sIKW_5bGuAih8G3k&_nc_ht=scontent.fabv1-1.fna&oh=72b71e89860d190dc5dad3ea0fc2d089&oe=5CD94EAD); }
+    .panel3 { background-image:url(https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/46828839_159393661714108_7999750409868541952_n.jpg?_nc_cat=110&_nc_eui2=AeHgdOgEzA0UO1D1jbD7J6pB8qs6zt2VmgpGS7G5zcFM7p_FL6lZS4po3AeXhgijesOstpD_jAsY5219Hkz3JnijUP5OiFC2Axh9gWYhsV7yfQiaK6J3Tstgu8WjnlseWto&_nc_ht=scontent.fabv1-1.fna&oh=baa977c5f01ccd9396d5f5aa96824973&oe=5CD74C53); }
+    .panel4 { background-image:url(https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/45032917_129681074685367_4517834583508516864_n.jpg?_nc_cat=103&_nc_eui2=AeG0JwecD5hsLTp_CDzNvNAczV7dwI1mvUAWuHyGLSfeZ95iGcQiRxRKMTzbvMa1KkpoiFD_1qI2IqW24HtpbeENkZRvLjT72qxgKlDWSNY6l7vX3tvyMqmX30yeqsAhaM4&_nc_ht=scontent.fabv1-1.fna&oh=6ed27c45fed436857de6b80bccc0a4aa&oe=5CC8EF53); }
+    .panel5 { background-image:url(https://scontent.fabv1-1.fna.fbcdn.net/v/t1.0-9/45188717_129674171352724_4331290517322072064_n.jpg?_nc_cat=110&_nc_eui2=AeGkwmRTW-52_s8lIbNExyJNTsGbTtfdHNumLeuvtswukHGU64QLR2EIXb1aIBjK2kd1-jlPxENP9LlZgVyv-7RHSFLsir8ZvN7qzsepZNm0k1xYXekDmoj6YYu8dy446_M&_nc_ht=scontent.fabv1-1.fna&oh=44fc23491ed5758a421b8804f1ec0303&oe=5CCACC50); }
+
+    /* Flex Children */
+    .panel > * {
+      margin: 0;
+      width: 100%;
+      transition: transform 0.5s;
+      /* border: 1px solid red; */
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      justify-items: center;
+
+    }
+    
+    .panel > *:first-child {transform: translateY(-100%)}
+    .panel.active > *:first-child {
+      transform :translateY(0);
+      /* transition: 1.5s transform; */
+    }
+    .panel >*:last-child {transform: translateY(100%)}
+    .panel.active > *:last-child {transform: translateY(0)}
+
+
+    .panel p {
+      text-transform: uppercase;
+      font-family: 'Amatic SC', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 2em;
+    }
+    
+    .panel p:nth-child(2) {
+      font-size: 4em;
+    }
+
+    .panel.open {
+      flex: 5;
+      font-size: 40px;
+    }
+
+  </style>
+
+
+  <div class="panels">
+    <div class="panel panel1">
+      <p>OH!</p>
+      <p>Look!</p>
+      <p>A beautiful Smile!</p>
+    </div>
+    <div class="panel panel2">
+      <p>NOW,</p>
+      <p>That's</p>
+      <p>Elegance Impersonified!</p>
+    </div>
+    <div class="panel panel3">
+      <p>Wow!</p>
+      <p>A New Dawn!!!</p>
+      <p>A New Beginning!</p>
+    </div>
+    <div class="panel panel4">
+      <p>My Man,</p>
+      <p>Enjoy</p>
+      <p>The Moment!</p>
+    </div>
+    <div class="panel panel5">
+      <p>Don't Let</p>
+      <p>Life</p>
+      <p>Get to You, get some sleep!</p>
+    </div>
+  </div>
+
+  <script>
+
+    const panels = Array.from(document.querySelectorAll('.panel'));
+    console.log(panels);
+
+    function toggleOpen() {
+      // this.classList.toggle('active');
+      this.classList.toggle('open');
+
+    }
+    
+    function toggleActive(e) {
+      if(e.propertyName == 'flex-grow') {
+        this.classList.toggle('active')
+      }
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+  </script>
+
+
+
+</body>
+</html>
